@@ -2,7 +2,6 @@ package main
 
 import (
 	"github.com/gyf19/yar-go/yar"
-	"flag"
 	"fmt"
 	"net"
 	"runtime"

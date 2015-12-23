@@ -1,7 +1,6 @@
 package yar
 
 import (
-	"applib/pool"
 	"encoding/binary"
 	"errors"
 
@@ -19,7 +18,6 @@ var YAR_PROTOCOL_TOKEN = [32]byte{}
 var YAR_PROVIDER = [32]byte{'Y', 'a', 'r', ' ', 'G', 'o', ' ', 'C', 'l', 'i', 'e', 'n', 't'}
 
 var headerPool *sync.Pool
-var bytePool *pool.BytePool
 var packagers map[string]Packager
 
 func init() {
@@ -29,8 +27,6 @@ func init() {
 	packagers["msgpack"] = msgpack
 	json := newJsonPack()
 	packagers["json"] = json
-
-	bytePool = pool.NewBytePool()
 
 	headerPool = &sync.Pool{
 		New: func() interface{} {
@@ -199,9 +195,7 @@ func readPack(r io.Reader, x interface{}) (Packager, error) {
 		return nil, errors.New("yar: Response header missing params")
 	}
 	body_len := (int)(header.body_len - 8)
-	//data := make([]byte, body_len)
-	data := bytePool.Get(body_len)
-	defer bytePool.Put(data)
+	data := make([]byte, body_len)
 	n, err := io.ReadFull(r, data)
 	if n != body_len {
 		return nil, errors.New("yar: readPack body len error")

@@ -5,9 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"net/rpc"
-	"os"
 	"runtime"
-	"runtime/pprof"
 	"sync"
 	"time"
 )
@@ -71,15 +69,10 @@ func main() {
 			fmt.Println("goroutine start...")
 			st := time.Now()
 			for n := 0; n < RS; n++ {
-				//if err := cli.Call("Arith.Multiply", args, reply); err != nil {
-				//	fmt.Println(i, n, err)
-				//}
-				//fmt.Println(i, reply)
-
-				divCall := cli.Go("Arith.Multiply", args, reply, nil)
-				replyCall := <-divCall.Done // will be equal to divCall
-				//fmt.Println(i, (replyCall.Reply).(*Args), replyCall.Error)
-
+				if err := cli.Call("Arith.Multiply", args, reply); err != nil {
+					fmt.Println(i, n, err)
+				}
+				fmt.Println(i, reply)
 			}
 			fmt.Println(time.Now().Sub(st))
 		}(c, i)
