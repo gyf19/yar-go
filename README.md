@@ -16,7 +16,7 @@ Use this client is very simple, just few codes:
 var client, err = yar.Dial("tcp", Addr, "msgpack")
 var reply = &Args{}
 err := client.Call("Arith.Multiply", &Args{4, 5, "GO"}, reply)
-fmt.Println(i, n, err)
+fmt.Println(reply, err)
 client.Close()
 ```
 
