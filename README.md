@@ -1,11 +1,11 @@
-# Yar RPC Client for Golang
+# Yar RPC framework for Golang
 
 A Go client for [Yar RPC framework](https://github.com/laruence/yar).
 
 ## Introduction
 
 Yar is a light RPC framework for PHP written by Laruence. 
-If you are looking for a Go client for Yar, this project may
+If you are looking for a Go for Yar framework, this project may
 solve your problems.
 
 ## Usage
