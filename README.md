@@ -19,5 +19,29 @@ err := client.Call("Arith.Multiply", &Args{4, 5, "GO"}, reply)
 fmt.Println(reply, err)
 client.Close()
 ```
+Use this server is very simple, just few codes:
+
+```golang
+type Arith int
+
+type Args struct {
+	A, B int
+	C    string
+}
+
+func (t *Arith) Multiply(args *Args, reply *Args) error {
+	reply.A = args.A * args.B
+	reply.C = args.C + "_hello"
+	return nil
+}
+
+var server = yar.NewServer()
+server.Register(new(Arith))
+listener, err := net.Listen("tcp", ":12345")
+if err != nil {
+	return
+}
+server.Accept(listener)
+```
 
 If you any questions, use [Issues](https://github.com/gyf19/yar-go/issues).
