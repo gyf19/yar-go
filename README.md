@@ -14,9 +14,8 @@ Use this client is very simple, just few codes:
 
 ```golang
 var client, err = yar.Dial("tcp", Addr, "msgpack")
-var args = &Args{4, 5, "GO"}
 var reply = &Args{}
-err := client.Call("Arith.Multiply", args, reply)
+err := client.Call("Arith.Multiply", &Args{4, 5, "GO"}, reply)
 fmt.Println(i, n, err)
 client.Close()
 ```
